@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [seminars, setSeminars] = useState([]);
+
+  // Получение данных с сервера
+  useEffect(() => {
+    fetch('http://localhost:3001/seminars')
+      .then((response) => response.json())
+      .then((data) => setSeminars(data))
+      .catch((error) => console.error('Ошибка загрузки данных:', error));
+  }, []);
+
+  // Удаление семинара
+  const deleteSeminar = (id) => {
+    fetch(`http://localhost:3001/seminars/${id}`, { method: 'DELETE' })
+      .then(() => setSeminars(seminars.filter((seminar) => seminar.id !== id)))
+      .catch((error) => console.error('Ошибка удаления:', error));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Список семинаров</h1>
+      <ul>
+        {seminars.map((seminar) => (
+          <li key={seminar.id}>
+            <h2>{seminar.title}</h2>
+            <p>{seminar.description}</p>
+            <button onClick={() => deleteSeminar(seminar.id)}>Удалить</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
