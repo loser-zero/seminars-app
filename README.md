@@ -1,5 +1,12 @@
+Приложение:
+
 ![image](https://github.com/user-attachments/assets/c2184fdd-161d-484c-a071-6114bcb667af)
+
+Редактирование семинара:
+
 ![image](https://github.com/user-attachments/assets/ab2e6140-a7b1-4a79-a147-fb87415c0523)
+
+Запуск:
 
 npm start - для запуска приложения
 npm start server - для запуска сервера (Семинар)
